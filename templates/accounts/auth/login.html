@@ -1,0 +1,47 @@
+{% extends "accounts/auth/base.html" %}
+{% load static %}
+{% block head %}
+  <link rel="stylesheet" href="{% static 'main/form_styles.css' %}">
+{% endblock %}
+
+{% block content %}
+
+  <div class="container" style="height:100%; display: flex; justify-content: center;">
+    <div class="d-flex align-items-center pb-5" style="width: 60%">
+      <div class="col-12 col-md-12 col-lg-12  pb-5 mx-auto">
+        <form class="body-form" method="post">
+
+          {% csrf_token %}
+          <h3 class="mb-4 fw-bold">Тизимга кириш</h3>
+
+
+          {% if messages %}
+            <div class="alert alert-primary" role="alert">
+              Хато: Логин йоки Парол нотугри
+            </div>
+          {% endif %}
+
+          <label class="form-label">{{ form.username.label }}<span class="text-danger"> *</span></label>
+          {{ form.username }}
+
+          <label class="form-label">{{ form.password.label }}<span class="text-danger"> *</span></label>
+          {{ form.password }}
+
+          <div class="d-grid gap-2">
+            <input type="hidden" name="next" value="{{ next }}">
+            <button class="btn btn-primary py-2 mb-4 mt-5 fw-bold" type="submit" value="Log-in">Кириш
+            </button>
+          </div>
+
+          <div class="flex-column justify-content-center mx-auto pb-3">
+            <div class="text-center">
+              <a href="{% url 'accounts:register' %}" class="h5">Аккаунт Яратиш</a>
+            </div>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

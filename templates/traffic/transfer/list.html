@@ -1,0 +1,135 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head %}
+  <link rel="stylesheet" href="{% static 'main/form_styles.css' %}">
+{% endblock %}
+
+{% block add_to_navbar %}
+  <a type="button" role="button" href="{% url 'traffic:transfer-pre-create' company.pk %}" class="btn btn-outline-light border-0">
+    <div>
+      <svg xmlns="http://www.w3.org/2000/svg" width="60" height="40" viewBox="0 0 448 512" fill="currentColor">
+        <path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z"/>
+      </svg>
+    </div>
+  </a>
+{% endblock %}
+
+{% block content %}
+
+  <div class="px-md-4 px-1">
+
+    <nav id="breadcrumb" aria-label="breadcrumb">
+      <ol class="breadcrumb px-3 px-md-5">
+        <li class="breadcrumb-item h4"><a href="{% url 'main:dashboard' company.pk %}">Асосий меню</a></li>
+        <li class="breadcrumb-item active h4" aria-current="page">Перемещениялар</li>
+      </ol>
+      <hr style="height: 2px;border-color:black;background:black;opacity:1;">
+    </nav>
+
+
+    {% if messages %}
+      {% for message in messages %}
+        <div class="alert alert-primary h5" role="alert">
+          {{ message }}
+        </div>
+      {% endfor %}
+    {% endif %}
+
+    <h3 class="text-center fw-bold mb-4">Перемещениялар жадвали</h3>
+    <div class="table-responsive">
+      <table class="table no-wrap h5">
+        <thead class="table-dark">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Берувчи склад</th>
+          <th scope="col">Кабул килувчи склад</th>
+          <th scope="col">Яратилган</th>
+          <th scope="col">Бошкарув</th>
+        </tr>
+        </thead>
+        <tbody>
+          {% for transfer in transfer_list %}
+            <tr>
+              <th scope="row">{{ forloop.counter }}</th>
+              <td>{{ transfer.source.name }}</td>
+              <td>{{ transfer.destination.name }}</td>
+              <td>{{ transfer.transferred_at }}</td>
+              <td>
+                <a href="{% url 'traffic:transfer-read' company.pk transfer.pk %}" class="btn btn-success equalize px-2 mb-2 me-md-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" height="20px" fill="white" class="hide">
+                    <path d="M249.6 471.5c10.8 3.8 22.4-4.1 22.4-15.5V78.6c0-4.2-1.6-8.4-5-11C247.4 52 202.4 32 144 32C93.5 32 46.3 45.3 18.1 56.1C6.8 60.5 0 71.7 0 83.8V454.1c0 11.9 12.8 20.2 24.1 16.5C55.6 460.1 105.5 448 144 448c33.9 0 79 14 105.6 23.5zm76.8 0C353 462 398.1 448 432 448c38.5 0 88.4 12.1 119.9 22.6c11.3 3.8 24.1-4.6 24.1-16.5V83.8c0-12.1-6.8-23.3-18.1-27.6C529.7 45.3 482.5 32 432 32c-58.4 0-103.4 20-123 35.6c-3.3 2.6-5 6.8-5 11V456c0 11.4 11.7 19.3 22.4 15.5z"/>
+                  </svg>
+                  <span>Батафсил</span>
+                </a>
+              </td>
+            </tr>
+
+          {% endfor %}
+        </tbody>
+      </table>
+
+    </div>
+
+    {% if is_paginated %}
+
+      <span class="pagination d-flex justify-content-center mt-3 mb-5">
+
+        {% if page_obj.has_previous %}
+
+          <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Олдинги</a>
+
+        {% else %}
+
+          <span class="page-item disabled">
+                <span class="page-link">Олдинги</span>
+          </span>
+
+        {% endif %}
+
+          {% for page in page_obj.paginator %}
+
+            {% if page.number == page_obj.number %}
+              <span class="page-item active">
+                <a class="page-link" href="?page={{ page.number }}">{{ page.number }}</a>
+              </span>
+            {% else %}
+              <span class="page-item">
+                <a class="page-link" href="?page={{ page.number }}">{{ page.number }}</a>
+              </span>
+            {% endif %}
+
+          {% endfor %}
+
+        {% if page_obj.has_next %}
+
+          <a class="page-link" href="?page={{ page_obj.next_page_number }}">Кейинги</a>
+        {% else %}
+
+          <span class="page-item disabled">
+                <span class="page-link">Кейинги</span>
+          </span>
+
+        {% endif %}
+
+      </span>
+
+    {% endif %}
+
+  </div>
+
+
+
+<style>
+
+  @media (max-width: 576px) {
+    body {
+      font-size: 13px;
+    }
+    .hide {
+      display:none
+    }
+  }
+</style>
+
+{% endblock %}

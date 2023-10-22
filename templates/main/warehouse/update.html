@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head %}
+  <link rel="stylesheet" href="{% static 'main/form_styles.css' %}">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.14.0-beta2/css/bootstrap-select.min.css" integrity="sha512-mR/b5Y7FRsKqrYZou7uysnOdCIJib/7r5QeJMFvLNHNhtye3xJp1TdJVPLtetkukFn227nKpXD9OjUc09lx97Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.14.0-beta2/js/bootstrap-select.min.js" integrity="sha512-FHZVRMUW9FsXobt+ONiix6Z0tIkxvQfxtCSirkKc5Sb4TKHmqq1dZa8DphF0XqKb3ldLu/wgMa8mT6uXiLlRlw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+{% endblock %}
+
+{% block content %}
+  <div class="px-md-4 px-1">
+    <nav id="breadcrumb" aria-label="breadcrumb">
+      <ol id="ol" class="breadcrumb px-3 px-md-5">
+        <li class="breadcrumb-item h4">
+          <a href="{% url 'main:dashboard' company.pk %}">Асосий меню</a>
+        </li>
+        <li class="breadcrumb-item h4">
+          <a href="{% url 'main:warehouse-list' company.pk %}">Складлар</a>
+        </li>
+        <li class="breadcrumb-item active h4" aria-current="page">Узгартириш</li>
+      </ol>
+      <hr style="height: 2px;border-color:black;background:black;opacity:1;">
+    </nav>
+
+    <div class="container" style="height:100%; display: flex; justify-content: center;">
+      <div class="d-flex align-items-center pb-5" style="width: 60%">
+        <div class="col-12 col-md-12 col-lg-12  pb-5 mx-auto">
+          <form class="body-form" method="post">
+            {% if form.errors %}
+              <div class="alert alert-primary h6" role="alert">
+                {{ form.errors }}
+              </div>
+            {% endif %}
+
+            {% csrf_token %}
+            <h3 class="mb-4 text-center fw-bold">Склад</h3>
+
+            <label>{{ form.name.label }}<span class="text-danger"> *</span></label>
+            {{ form.name }}
+
+            <label>{{ form.address.label }}<span class="text-danger"> *</span></label>
+            {{ form.address }}
+
+            <label>{{ form.users.label }}</label>
+            {{ form.users }}
+
+            <button class="btn btn-primary btn-block py-2 mb-4 mt-5 fw500 w-100" type="submit">
+              Узгартириш
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+<script>
+  $(document).ready(function(){
+    $(".bs-placeholder").css("backgroundColor", '#FFFFFF');
+    $(".bs-placeholder").css("height", "calc(2em + .75rem + 2px)");
+    $(".bs-placeholder").css("border-color", "#ced4da");
+  })
+</script>
+
+<style>
+  @media (max-width: 576px) {
+    #ol {
+      font-size: 16px;
+  }
+</style>
+{% endblock %}

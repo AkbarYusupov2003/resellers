@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head %}
+  <link rel="stylesheet" href="{% static 'main/form_styles.css' %}">
+{% endblock %}
+
+{% block content %}
+  <div class="container" style="height:100%; display: flex; justify-content: center;">
+    <div class="d-flex align-items-center pb-5" style="width: 60%">
+      <div class="col-12 col-md-12 col-lg-12  pb-5 mx-auto">
+        <form class="body-form" method="post">
+
+          {% if messages %}
+            {% for message in messages %}
+              <div class="alert alert-primary" role="alert">
+                {{ message }}
+              </div>
+            {% endfor %}
+          {% endif %}
+
+          {% csrf_token %}
+          <h3 class="mb-4 fw-bold">{{ form.name.value }} company</h3>
+
+          {% if form.errors %}
+
+            <p>Please correct the following errors:</p>
+
+            {% for field in form %}
+
+              {% if field.errors %}
+
+                <div class="alert alert-info" role="alert">
+                  {{ field.label }}: {{ field.errors|striptags }}
+                </div>
+
+              {% endif %}
+
+            {% endfor %}
+
+          {% endif %}
+
+          <label>{{ form.name.label }} <span class="text-danger"> *</span></label>
+          {{ form.name }}
+          <label>{{ form.email.label}}<span class="text-danger"> *</span></label>
+          {{ form.email }}
+          <label>{{ form.address.label}}<span class="text-danger"> *</span></label>
+          {{ form.address }}
+          <label>{{ form.phone_number.label}}<span class="text-danger"> *</span></label>
+          {{ form.phone_number }}
+          <label>{{ form.license_number.label}}<span class="text-danger"> *</span></label>
+          {{ form.license_number }}
+
+          <button class="btn btn-primary btn-block py-2 mb-4 mt-5 w-100" type="submit">
+            Save
+          </button>
+
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}

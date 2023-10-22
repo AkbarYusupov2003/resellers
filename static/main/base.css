@@ -1,0 +1,71 @@
+.base-body-div{
+  background: #4E89EF;
+}
+
+#main-div{
+  border-radius:44px 44px 0px 0px;
+  background-color:white;
+}
+
+#breadcrumb {
+  --bs-breadcrumb-divider: '>';
+}
+
+/* Bootstrap Over-ride */
+@media (min-width: 1000px){
+  .container{
+      max-width: 1000px;
+  }
+}
+
+@media (max-width: 1200px){
+  .container{
+      max-width: 100%;
+      padding:0 24px;
+  }
+}
+
+.dropdown-toggle::after {
+  display: none;
+}
+
+.dropdown-menu{
+  top:58px;
+  left:0px;
+  padding:10px;
+}
+
+.alert-primary{
+  background-color: #E4F1FF;
+}
+
+/* Fonts */
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');
+html, body, p, div{
+    font-family: 'Source Sans Pro', sans-serif;
+}
+
+.fs12{
+    font-size: 12px;
+}
+
+.fs15{
+    font-size: 15px;
+}
+
+.fs45{
+    font-size: 45px;
+
+}
+.fw300{
+    font-weight: 300;
+}
+
+.fw500{
+    font-weight: 500;
+}
+
+/* Footer */
+.footer > div > div > ul > li{
+    padding-bottom:8px;
+}

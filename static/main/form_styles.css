@@ -1,0 +1,31 @@
+/* Input */
+.body-form input {
+  height: calc(2em + .75rem + 2px);
+}
+
+.body-form input:focus {
+  border-color: #1497ff;
+  box-shadow: none;
+}
+
+
+/* Select */
+.body-form select {
+  height: calc(2em + .75rem + 2px);
+}
+
+.body-form select:focus {
+  border-color: #1497ff;
+  box-shadow: none;
+}
+
+/* Textarea */
+
+.body-form textarea:focus {
+  border-color: #1497ff;
+  box-shadow: none;
+}
+
+.id_stocks {
+  height: calc(22em + .75rem + 2px);
+}
